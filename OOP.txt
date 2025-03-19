@@ -1,0 +1,197 @@
+#include <iostream>
+using namespace std;
+
+// parent class
+class Item {
+public:
+        // data members
+        double Price;
+        int ItemCount;
+
+        // constructor
+        Item() {
+                Price = 0;
+                ItemCount = 0;
+        }
+
+        // SetData() function
+        void SetData() {
+                cout << "Enter the Price: ";
+                cin >> Price;
+                cout << "Enter the Item Count: ";
+                cin >> ItemCount;
+                cout << "\n";
+        }
+
+        // DisplayData() function
+        void DisplayData() {
+                cout << "Price: " << Price << "\n";
+                cout << "Item Count: " << ItemCount << "\n\n";
+        }
+};
+
+// derived class with public inheritance
+class Tablet: public Item {
+public:
+        // data members
+        string Company;
+        int SizeinMg;
+
+        // default constructor
+        Tablet() {
+                Company = "";
+                SizeinMg = 0;
+        }
+
+        // overridden function
+        void SetData() {
+                cout << "Enter the Company name: ";
+                cin >> Company;
+                cout << "Enter the Size in Mg: ";
+                cin >> SizeinMg;
+
+                // calling parent class function
+                Item::SetData();
+        }
+
+        // overridden function
+        void DisplayData() {
+                cout << "Company name: " << Company << "\n";
+                cout << "Size in Mg: " << SizeinMg << "\n";
+
+                // calling parent class function
+                Item::DisplayData();
+        }
+
+        // getPrice() function
+        double getPrice() {
+                // returns Price multiplied with ItemCount and added 12.5% tax
+                return 1.125 * Price * ItemCount;
+        }
+};
+
+// derived class with public inheritance
+class Syrup: public Item {
+public:
+        // data members
+        string Company;
+        int SizeinML;
+
+        // default constructor
+        Syrup() {
+                Company = "";
+                SizeinML = 0;
+        }
+
+        // overridden function
+        void SetData() {
+                cout << "Enter the Company name: ";
+                cin >> Company;
+                cout << "Enter the Size in ML: ";
+                cin >> SizeinML;
+
+                Item::SetData();
+        }
+
+        // overridden function
+        void DisplayData() {
+                cout << "Company name: " << Company << "\n";
+                cout << "Size in ML: " << SizeinML << "\n";
+
+                Item::DisplayData();
+        }
+
+
+        double getPrice() {
+                // returns Price multiplied with ItemCount and added 12.5% tax
+                return 1.125 * Price * ItemCount;
+        }
+};
+
+// derived class with public inheritance
+class Syringe: public Item {
+public:
+        // data members
+        string Brand;
+        int SizeinML;
+
+        // default constructor
+        Syringe() {
+                Brand = "";
+                SizeinML = 0;
+        }
+
+        // overridden function
+        void SetData() {
+                cout << "Enter the Brand name: ";
+                cin >> Brand;
+                cout << "Enter the Size in ML: ";
+                cin >> SizeinML;
+
+                Item::SetData();
+        }
+
+        // overridden function
+        void DisplayData() {
+                cout << "Brand name: " << Brand << "\n";
+                cout << "Size in ML: " << SizeinML << "\n";
+
+                Item::DisplayData();
+        }
+
+        double getPrice() {
+                // returns Price multiplied with ItemCount and added 12.5% tax
+                return 1.125 * Price * ItemCount;
+        }
+};
+
+// main() function
+int main() {
+        // define array size
+        int array_size = 10;
+
+        // dynamically create array of Tablet type
+        Tablet *tablets = new Tablet[array_size];
+        for (int i = 0; i < array_size; i++) {
+                tablets[i].SetData();
+        }
+
+        // dynamically create array of Syrup type
+        Syrup *syrups = new Syrup[array_size];
+        for (int i = 0; i < array_size; i++) {
+                syrups[i].SetData();
+        }
+
+        // dynamically create array of Syringe type
+        Syringe *syringes = new Syringe[array_size];
+        for (int i = 0; i < array_size; i++) {
+                syringes[i].SetData();
+        }
+
+
+        // displaying company name and price of the tablets that have size 100mg or above
+        for (int i = 0; i < array_size; i++) {
+                if (tablets[i].SizeinMg >= 100) {
+                        cout << "Company name: " << tablets[i].Company << "\n";
+                        cout << "Price: " << tablets[i].getPrice() << "\n\n";
+                }
+        }
+
+        // displaying company name and price of the syrups that have size more than 250ML
+        for (int i = 0; i < array_size; i++) {
+                if (syrups[i].SizeinML >= 250) {
+                        cout << "Company name: " << syrups[i].Company << "\n";
+                        cout << "Price: " << syrups[i].getPrice() << "\n\n";
+                }
+        }
+
+        // displaying company name and price of the syringes that have capacity more than 10ML
+        for (int i = 0; i < array_size; i++) {
+                if (syringes[i].SizeinML >= 10) {
+                        cout << "Company name: " << syringes[i].Brand << "\n";
+                        cout << "Price: " << syringes[i].getPrice() << "\n\n";
+                }
+        }
+
+        return 0;
+}
